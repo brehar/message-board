@@ -77,3 +77,25 @@ exports.removeById = function(id, cb) {
         });
     });
 };
+
+exports.updateById = function(id, newMessage, cb) {
+    if (!id) return cb('Message id required.');
+
+    if (!newMessage.message || !newMessage.name || !newMessage.email) {
+        return cb('A message, your name, and your email are required.');
+    }
+
+    this.findAll((err, messages) => {
+        messages = messages.map(message => {
+            if (message.id === id) {
+                return newMessage;
+            }
+
+            return message;
+        });
+
+        fs.writeFile(dataFile, JSON.stringify(messages), err => {
+            cb(err);
+        });
+    });
+};

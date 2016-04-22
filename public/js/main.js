@@ -1,5 +1,7 @@
 'use strict';
 
+var $msgToDelete;
+
 $(document).ready(function() {
     $('.modal-trigger').leanModal();
     $('.add-message').click(addMessage);
@@ -40,6 +42,8 @@ function addMessage() {
             $('#name').val('');
             $('#email').val('');
             $('#image').val('');
+
+            $('.modal-trigger').leanModal('destroy');
         },
         error: function() {
             Materialize.toast('Unable to post message. Please ensure all fields are completed and try again later.', 4000);
@@ -55,7 +59,7 @@ function deleteMessage() {
         url: '/api/messages/' + id,
         type: 'DELETE',
         success: function() {
-            $msg.parent().parent().parent().parent().remove();
+            $msg.parent().parent().parent().remove();
         },
         error: function() {
             Materialize.toast('Unable to delete message.', 4000);
@@ -65,6 +69,7 @@ function deleteMessage() {
 
 function editMessage() {
     var id = $(this).attr('data-id');
+    $msgToDelete = $(this);
 
     $.ajax({
         url: '/api/messages/' + id,
@@ -92,9 +97,7 @@ function saveChanges() {
         id: $('#edit-id').val()
     };
 
-    // Delete the message from the DOM
-    // Make sure edit button works for new images
-    // Figure out problem with editing messages and everything disappearing
+    $msgToDelete.parent().parent().parent().remove();
 
     $.ajax({
         url: '/api/messages/' + message.id,
@@ -118,7 +121,7 @@ function saveChanges() {
             $('#edit-name').val('');
             $('#edit-email').val('');
             $('#edit-image').val('');
-            $('#edit-id').val();
+            $('#edit-id').val('');
         },
         error: function() {
             Materialize.toast('Unable to save changes.', 4000);

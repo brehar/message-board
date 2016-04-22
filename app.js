@@ -45,14 +45,8 @@ app.route('/api/messages/:id').get((req, res, next) => {
     });
 }).put((req, res, next) => {
     var id = req.params.id;
-
-    Message.removeById(id, err => {
-        if (err) return res.status(400).send(err);
-    });
-
-    Message.create(req.body, err => {
-        if (err) return res.status(400).send(err);
-
+    
+    Message.updateById(id, req.body, err => {
         res.send();
     });
 }).delete((req, res, next) => {

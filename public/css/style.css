@@ -1,0 +1,12 @@
+html {
+    background: url('/img/bb.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -27px;
+    margin-left: -80px;
+}

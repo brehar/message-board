@@ -1,0 +1,77 @@
+extends ./layout.jade
+
+block content
+    .container
+        .section
+            .row.center-align
+                a.modal-trigger.waves-effect.waves-light.btn-large(href="#addModal") Make a New Post
+        .section
+            .row.messages
+                each message in messages
+                    .ul.collection
+                        .li.collection-item.avatar
+                            img.circle(src="#{message.image}")
+                            span.title
+                                a.email-field(href="mailto:#{message.email}") #{message.name}
+                            p.primary-content #{message.message}
+                            p.secondary-content #{message.timestamp}
+                            br
+                            .row.right-align
+                                a.modal-trigger.btn-floating.waves-effect.waves-light.edit-btn(href="#editModal", data-id="#{message.id}")
+                                    i.material-icons mode_edit
+                                &nbsp;
+                                a.btn-floating.waves-effect.waves-light.red.delete-btn(data-id="#{message.id}")
+                                    i.material-icons delete
+    #addModal.modal.modal-fixed-footer
+        .modal-content
+            h4 Add a Message
+            form
+                .input-field
+                    textarea#message.materialize-textarea
+                    label(for="message") Message
+                .input-field
+                    input#name(type="text")
+                    label(for="name") Name
+                .input-field
+                    input#email.validate(type="email")
+                    label(for="email") E-mail Address
+                .input-field
+                    input#image(type="text")
+                    label(for="image") Image URL
+        .modal-footer
+            a.modal-action.modal-close.waves-effect.waves-red.btn-flat(href="#!") Cancel
+            a.modal-action.modal-close.waves-effect.waves-green.btn-flat.add-message(href="#!") Submit
+    #editModal.modal.modal-fixed-footer
+        .modal-content
+            h4 Edit Message
+            form
+                .input-field
+                    textarea#edit-message.materialize-textarea
+                    label(for="edit-message") Message
+                .input-field
+                    input#edit-name(type="text")
+                    label(for="edit-name") Name
+                .input-field
+                    input#edit-email.validate(type="email")
+                    label(for="edit-email") E-mail Address
+                .input-field
+                    input#edit-image(type="text")
+                    label(for="edit-image") Image URL
+                input#edit-id(type="hidden")
+        .modal-footer
+            a.modal-action.modal-close.waves-effect.waves-red.btn-flat(href="#!") Discard Changes
+            a.modal-action.modal-close.waves-effect.waves-green.btn-flat.edit-message(href="#!") Save Changes
+    .ul.collection.hidden
+        .li.collection-item.avatar
+            img.circle(src="")
+            span.title
+                a.email-field(href="")
+                p.primary-content
+                p.secondary-content
+                br
+                .row.right-align
+                    a.modal-trigger.btn-floating.waves-effect.waves-light.edit-btn(href="#editModal")
+                        i.material-icons mode_edit
+                    &nbsp;
+                    a.btn-floating.waves-effect.waves-light.red.delete-btn
+                        i.material-icons delete

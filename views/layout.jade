@@ -1,0 +1,22 @@
+doctype html
+html(lang="en")
+    head
+        link(rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons")
+        link(type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection")
+        if indexRoute
+            link(type="text/css" rel="stylesheet" href="/css/style.css")
+        if messagesRoute
+            link(type="text/css" rel="stylesheet" href="/css/messagesstyle.css")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title Message Board
+    body
+        nav
+            .nav-wrapper
+                a.brand-logo.center(href="/") Message Board
+        block content
+        script(type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js")
+        script(type="text/javascript" src="/js/materialize.min.js")
+        if messagesRoute
+            script(type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js")
+            script(type="text/javascript" src="/js/uuid.js")
+            script(type="text/javascript" src="/js/main.js")

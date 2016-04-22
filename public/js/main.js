@@ -1,7 +1,5 @@
 'use strict';
 
-var $msgToDelete;
-
 $(document).ready(function() {
     $('.modal-trigger').leanModal();
     $('.add-message').click(addMessage);
@@ -69,7 +67,6 @@ function deleteMessage() {
 
 function editMessage() {
     var id = $(this).attr('data-id');
-    $msgToDelete = $(this);
 
     $.ajax({
         url: '/api/messages/' + id,
@@ -97,7 +94,9 @@ function saveChanges() {
         id: $('#edit-id').val()
     };
 
-    $msgToDelete.parent().parent().parent().remove();
+    var $msg = $('.messages').find('[data-id="' + message.id + '"]');
+
+    $msg.parent().parent().parent().remove();
 
     $.ajax({
         url: '/api/messages/' + message.id,
